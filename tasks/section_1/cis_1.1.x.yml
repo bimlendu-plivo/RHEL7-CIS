@@ -251,3 +251,21 @@
   - patch
   - rule_1.1.24
   - usb-storage
+
+### Amazon Linux Support
+
+- include: all_mounts_facts.yml
+  tags:
+    - level1
+
+- name: "AUTOMATED | 1.1.17 | PATCH | Ensure noexec option set on /dev/shm partition"
+  mount:
+    name: "{{ item.mount }}"
+    state: mounted
+    fstype: "{{ item.fstype }}"
+    src: "{{ item.device }}"
+    opts: "{{ item.options.split(',') | union(['noexec']) | join(',') }}"
+  when: item.mount == '/dev/shm'
+  with_items: "{{ all_mounts.stdout | default('{}') | from_json }}"
+  tags:
+    - level1
