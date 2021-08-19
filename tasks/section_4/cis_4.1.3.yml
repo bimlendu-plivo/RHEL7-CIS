@@ -6,15 +6,15 @@
     shell: grep 'GRUB_CMDLINE_LINUX=' /etc/default/grub | cut -f2 -d'"'
     changed_when: false
     failed_when: false
-    register: rhel7cis_4.1.3_grub_cmdline_linux_settings
+    register: rhel7cis_4_1_3_grub_cmdline_linux_settings
 
   - name: "AUTOMATED | 4.1.3 | PATCH | Ensure auditing for processes that start prior to auditd is enabled | Set audit=1 if not configured"
     lineinfile:
       dest: /etc/default/grub
       regexp: '^GRUB_CMDLINE_LINUX='
-      line: 'GRUB_CMDLINE_LINUX="audit=1 {{ rhel7cis_4.1.3_grub_cmdline_linux_settings.stdout }}"'
+      line: 'GRUB_CMDLINE_LINUX="audit=1 {{ rhel7cis_4_1_3_grub_cmdline_linux_settings.stdout }}"'
     notify: grub2cfg
-    when: '"audit=" not in rhel7cis_4.1.3_grub_cmdline_linux_settings.stdout'
+    when: '"audit=" not in rhel7cis_4_1_3_grub_cmdline_linux_settings.stdout'
 
   - name: "AUTOMATED | 4.1.3 | PATCH | Ensure auditing for processes that start prior to auditd is enabled | Adjust audit=1 if exists"
     replace:
@@ -22,12 +22,12 @@
       regexp: 'audit=([^\D]+)'
       replace: 'audit=1'
     notify: grub2cfg
-    when: '"audit=" in rhel7cis_4.1.3_grub_cmdline_linux_settings.stdout'
+    when: '"audit=" in rhel7cis_4_1_3_grub_cmdline_linux_settings.stdout'
   when:
-  - rhel7cis_rule_4.1.3
+  - rhel7cis_rule_4_1_3
   tags:
   - level2
   - grub
   - patch
   - automated
-  - rule_4.1.3
+  - rule_4_1_3
