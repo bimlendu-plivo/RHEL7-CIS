@@ -10,9 +10,9 @@
     become: true
     when:
     - item.id != "root"
-    - item.id != "sync"
-    - item.id != "shutdown"
-    - item.id != "halt"
+    # - item.id != "sync"
+    # - item.id != "shutdown"
+    # - item.id != "halt"
     - item.gid < rhel7cis_int_gid
     - item.shell != "      /bin/false"
     - item.shell != "      /usr/sbin/nologin"
@@ -24,9 +24,9 @@
     loop: "{{ rhel7cis_passwd }}"
     become: true
     when:
-    - item.id != "halt"
-    - item.id != "shutdown"
-    - item.id != "sync"
+    # - item.id != "halt"
+    # - item.id != "shutdown"
+    # - item.id != "sync"
     - item.id != "root"
     - item.gid < rhel7cis_int_gid
     - item.shell != "      /bin/false"
