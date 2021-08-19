@@ -6,6 +6,9 @@
 - name: "SECTION | 4.1.2.x| Configure Data Retention"
   include: cis_4.1.2.x.yml
 
+- name: "SECTION | 4.1.3 | Configure Auditd"
+  include: cis_4.1.3.yml
+
 - name: "SECTION | 4.2.x| Configure Logging"
   include: cis_4.2.1.x.yml
 
